@@ -4,7 +4,6 @@ const mc=require("mongodb").MongoClient;
 const expressErrorHandler=require("express-async-handler")
 //core one no need to import
 
-const checkToken=require("./middlewares/verifyToken")
 
 itemsApi.use(exp.json())
 
