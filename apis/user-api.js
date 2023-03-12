@@ -6,7 +6,6 @@ const expressErrorHandler=require("express-async-handler")
 const bcryptjs=require("bcryptjs")
 //connect angular app with express server
 
-const checkToken=require("./middlewares/verifyToken")
 userApi.use(exp.json())
 const databaseUrl="mongodb+srv://madhu:madhu@clusterbackend.szevd.mongodb.net/myfirstdb?retryWrites=true&w=majority"
 
@@ -26,7 +25,7 @@ mc.connect(databaseUrl,{useNewUrlParser:true,useUnifiedTopology:true},(err,clien
 
 //get http://localhost:3000/user/getusers
 userApi.get('/getusers',expressErrorHandler(async(req,res,next)=>{
-    let userList=await userCollectionsObj.findOne({username:"Manish"})
+    let userList=await userCollectionsObj.find().toArray();
    
     res.send({message:userList})
 }))

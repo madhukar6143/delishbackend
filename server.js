@@ -3,11 +3,13 @@ const app=exp();
 const path = require("path")
 const bodyParser = require("body-parser");
  app.use(bodyParser.json());
+ app.use(bodyParser.urlencoded({ extended: false }));
  
-const userApi=require("./apis/user-api")
-const itemsApi=require("./apis/itemsdata")
  
-
+app.use((req, res, next) => {
+    console.log(`Incoming request from route: ${req.path}`);
+    next();
+  });
 
 const cors = require('cors')
 const corsOptions ={
@@ -17,6 +19,7 @@ const corsOptions ={
 }
 app.use(cors(corsOptions));
 
+
 app.get("/", (req, res) => {
     res.send("Home page");
   });
@@ -24,6 +27,8 @@ app.get("/", (req, res) => {
 
 //connecting front end to backend
 
+const userApi=require("./apis/user-api")
+const itemsApi=require("./apis/itemsdata")
 //importing
 app.use("/user",userApi)
 app.use("/items",itemsApi)
@@ -32,8 +37,8 @@ app.use("/items",itemsApi)
 
 
 app.use((req,res)=>{
-    console.log("wrong")
-    res.send({message:`Path ${req.url} is invalid`})
+    console.log(req.path,"invlauid")
+    res.send({message:`Path ${req.path} is invalid`})
 })
 
 app.use((err,req,res,next)=>{
@@ -45,12 +50,3 @@ app.listen(port,()=>console.log(`Server can hear you on ${port}....`))
 
 
 
-/*
-app.get('/addtocart',expressErrorHandler(async(req,res,next)=>{
-    console.log("backend called")
-    let arr=[1,2,34]
-    res.send({message:arr})
-}))
-//connect angular app with express server
-app.use(exp.static(path.join(__dirname, './dist/delish/')))
-*/
