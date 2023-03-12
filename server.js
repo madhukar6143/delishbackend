@@ -13,7 +13,7 @@ app.use((req, res, next) => {
 
 const cors = require('cors')
 const corsOptions ={
-    origin:["http://localhost:4200","https://delish-restaurant.netlify.app"], 
+    origin:["http://localhost:4200","https://delish-server.onrender.com"], 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
